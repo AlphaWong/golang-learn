@@ -30,10 +30,15 @@ func main() {
 			Balance:        31.146,
 			SocialAccounts: []string{"facebook", "line"},
 		}
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json")
+		// Do not set the header
+		// https://github.com/golang/go/issues/17083
+		// w.WriteHeader(http.StatusOK)
 
+		// Follow statement is must.
+		w.Header().Set("Content-Type", "application/json")
+		// response will be fired via json
 		json.NewEncoder(w).Encode(dummyUser0)
+		// Reference https://kev.inburke.com/kevin/golang-json-http/
 	})
 	http.ListenAndServe(PORT, r)
 }

@@ -23,10 +23,18 @@ func main() {
 			"balance":        9.87,
 			"socialAccounts": []string{"facebook", "line"},
 		}
-		w.WriteHeader(http.StatusOK)
+		// Warning
+		// It will covert the map to byte code
+		// An Error will be throw if covertion failed.
+		encodedJSON, err := json.Marshal(userMap)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
-		encodedJSON, _ := json.Marshal(userMap)
+		// response will be fired via fmt
 		fmt.Fprintf(w, string(encodedJSON))
+		// Reference https://blog.golang.org/json-and-go
 	})
 	http.ListenAndServe(PORT, r)
 }
