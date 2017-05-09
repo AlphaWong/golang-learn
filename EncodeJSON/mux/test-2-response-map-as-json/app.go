@@ -26,6 +26,7 @@ func main() {
 		// Warning
 		// It will covert the map to byte code
 		// An Error will be throw if covertion failed.
+		//  http://stackoverflow.com/questions/21197239/decoding-json-in-golang-using-json-unmarshal-vs-json-newdecoder-decode
 		encodedJSON, err := json.Marshal(userMap)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
